@@ -44,6 +44,25 @@ export class AppController {
       url: '/',
     };
   }
+  @Get('cats/modifyForm/:id')
+  @Render('edit')
+  async modifyFormPainting(@Param('id') id: number) {
+    const [rows] = await db.execute(
+      'SELECT id, title, year, on_display FROM cats WHERE id = ?',
+      [id],
+    );
+    return { macskak: rows[0] };
+  }
+  @Get('cats/:id')
+  @Render('show')
+  async showCats(@Param('id') id: number) {
+    const [rows] = await db.execute(
+      'SELECT title, year, on_display FROM cats WHERE id = ?',
+      [id],
+    );
+    return { cat: rows[0] };
+  }
+}
 
   
-}
+
